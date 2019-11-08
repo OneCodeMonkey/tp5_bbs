@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>{$t.title} - {:config('web.WEB_AUT')}</title>
+<meta name="keywords" content="{$t.keywords}">
+<meta name="description" content="{$t.description}">
+{include file="index/header"}
+<link rel="stylesheet" href="__HOME__/css/thread.css">
+<link rel="stylesheet" href="__ADMIN__/wangEditor/css/wangEditor.min.css">
+<script type="text/javascript" src="__ADMIN__/wangEditor/js/wangEditor.min.js"></script>
+<style type="text/css">
+.wangEditor-menu-container .menu-item a {padding: 12px 0;}
+.wangEditor-menu-container .menu-item {height: 37px;width: 37px;}
+.wangEditor-menu-container .menu-group {padding: 0;}
+.wangEditor-container {border: 1px solid #e6e6e6;}
+.pagination {margin: 0 0 20px 0;}
+</style>
+<div class="mobile cl">
+<div class="content detail">
+<div class="fly-panel detail-box">
+<h1>{$t.title}</h1>
+<div class="fly-tip fly-detail-hint">
+<span>{if condition="config('web.WEB_URL') eq 1"}<a style="color:#fff;" class="jie-user" href="__ROOT__/view/{$t.cid}.html">{else/}<a style="color:#fff;" class="jie-user" href="__INDEX__/view/{$t.cid}.html">{/if}{$t.name}</a></span>
+{if condition="$t['settop'] eq 1"}<span style="margin-right: 4px;" class="fly-tip-stick">置顶</span>{/if}
+{if condition="$t['choice'] eq 1"}<span class="fly-tip-jing">精帖</span>{/if}
+<div class="fly-list-hint"> 
+<i class="iconfont" title="回答">&#xe655;</i> {$t.reply}
+<i class="iconfont" title="人气">&#xe6c0;</i> {$t.view}
+</div>
+</div>
+<div class="detail-about">
+{if condition="config('web.WEB_URL') eq 1"}<a class="jie-user" href="__ROOT__/home/{$t.userid}.html">{else/}<a class="jie-user" href="__INDEX__/home/{$t.userid}.html">{/if}
+<img src="__UPLO__{$t.userhead}" alt="{$t.username}">
+<cite>
+{$t.username}
+<em>{$t.time|date="Y-m-d h:i:s",###}</em>
+</cite>
+</a>
+<div class="detail-hits">
+<span class="">{include file="public/grades"}</span>
+<span class="">积分：{$t.point}</span>
+</div>
+</div>
+<div class="detail-body photos" style="margin-bottom: 20px;">
+<div class="wangEditor-container cl" style="border: 0px solid #e6e6e6;">
+<div class="wangEditor-txt" style="padding: 0;margin-top: 0;">
+{$t.content}
+</div>
+</div>
+</div>
+</div>
+<div class="fly-panel detail-box">
+<a name="comment"></a>
+<ul class="cmt-box jieda photos" id="jieda">
+{volist name="tptc" id="vo"}
+<li class="cmt-item jieda-daan" id="tpt{$vo.id}">
+<a name="item-121212121212"></a>
+<div class="detail-about detail-about-reply">
+{if condition="config('web.WEB_URL') eq 1"}<a class="jie-user" href="__ROOT__/home/{$vo.userid}.html">{else/}<a class="jie-user" href="__INDEX__/home/{$vo.userid}.html">{/if}
+<img src="__UPLO__{$vo.userhead}" alt="{$vo.username}">
+<cite>
+<i>{$vo.username}</i>
+{include file="public/grade"}
+</cite>
+</a>
+<div class="detail-hits">
+<span>{$vo.time|date="Y-m-d h:i:s",###}</span>
+</div>
+<span style="float: right; color:#999; margin-right: 0px;">
+<a style="color: #999;font-size: 13px;" class="reply-btn" href="javascript:;" reply="{$vo.userid}" at-user="true"><i style="margin-right: 4px;font-size: 15px;" class="iconfont">&#xf0302;</i>回复</a>
+<span class="username" style="display:none">{$vo.username}</span>
+{if condition="$Think.session.userid eq 1"}
+<a class="del_btn" style="cursor: pointer;margin-left: 8px;color: #999;font-size: 13px;" member-id="{$vo.id}" member-fid="{$t.id}"  title="删除" nickname="此评论吗">
+<i style="font-size: 20px;position: relative;top: 1px;" class="layui-icon">&#xe640;</i>删除</a>
+{/if}
+</span>
+</div>
+<div class="detail-body jieda-body">
+<p>{$vo.content}</p>
+</div>
+</li>
+{/volist}
+</ul>
+<div class="pages">{$tptc->render()}</div>
+<div class="cmt-item layui-form layui-form-pane">
+<form>
+<input type="hidden" value="{$t.userid}" name="mid">
+<div class="layui-form-item layui-form-text">
+<div class="layui-input-block">
+<textarea id="textarea" name="content" required lay-verify="content" style="height:150px;width: 100%;"></textarea>
+</div>
+</div>
+<div class="layui-form-item">
+<button class="layui-btn" lay-submit="" lay-filter="comment_add">提交回复</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+$(function(){	
+var form = $('.cmt-item:last');
+$('.cmt-box').delegate('.reply-btn','click',function(event){
+var parent = $(this).closest('.cmt-item');
+form.find(':hidden[name=mid]').val($(this).attr('reply'));
+var textarea = parent.append(form).find('.wangEditor-txt p');
+if($(this).attr('at-user') == 'true'){
+var username = $(this).parent().find('.username').text();
+textarea.text('回复 @' + username + ' : ');
+}else{
+textarea.text('');
+}
+moveEnd(textarea.get(0));
+event.stopPropagation();
+})
+})
+</script>
+<script type="text/javascript">
+var editor = new wangEditor('textarea');
+editor.config.uploadImgUrl = '{:url("index/upload/doUploadPic")}';
+editor.config.uploadImgFileName = 'FileName';
+editor.config.menus = [
+'bold',
+'underline',
+'italic',
+'strikethrough',
+'forecolor',
+'fullscreen',
+];
+editor.config.pasteText = true;
+editor.create();
+</script>
+<script type="text/javascript">
+layui.use('form', function(){
+var form = layui.form()
+,jq = layui.jquery;
+jq('.del_btn').click(function(){
+var id = jq(this).attr('member-id');
+var fid = jq(this).attr('member-fid');
+layer.confirm('确定删除次评论么?', function(index){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+jq.post('{:url("mobile/comment/dels")}',{'id':id,'fid':fid},function(data){
+if(data.code == 200){
+layer.close(loading);
+layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+location.reload();
+});
+}else{
+layer.close(loading);
+layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+}
+});
+});
+});
+form.verify({
+content: function(value){
+if(value.replace(/<[^<>]+?>|[ ]|[&nbsp;]/g,'') == ''){
+return '内容不得为空';
+}
+}
+});
+form.on('submit(comment_add)', function(data){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+var param = data.field;
+jq.post('{:url("mobile/comment/add",array("id"=>$t.id))}',param,function(data){
+if(data.code == 200){
+layer.close(loading);
+layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+location.reload();
+});
+}else{
+layer.close(loading);
+layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+}
+});
+return false;
+});
+})
+</script>
+{include file="index/footer"}
+</body>
+</html>

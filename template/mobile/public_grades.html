@@ -1,0 +1,5 @@
+{if condition="$t['grades'] eq 1"}<em style="font-style: normal;color:#5FB878">管理员</em>{else /}
+{if condition="$t['point'] egt config('point.GRADE_AVIP') and $t['point'] lt config('point.GRADE_BVIP')"}<em style="font-style: normal;color:#FF9E3F">{:config('point.GRADE_CVIP')}</em>{/if}
+{if condition="$t['point'] egt config('point.GRADE_DVIP') and $t['point'] lt config('point.GRADE_EVIP')"}<em style="font-style: normal;color:#FF9E3F">{:config('point.GRADE_FVIP')}</em>{/if}
+{if condition="$t['point'] egt config('point.GRADE_GVIP') and $t['point'] lt config('point.GRADE_HVIP')"}<em style="font-style: normal;color:#FF9E3F">{:config('point.GRADE_IVIP')}</em>{/if}
+{if condition="$t['point'] egt config('point.GRADE_JVIP')"}<em style="font-style: normal;color:#FF9E3F">{:config('point.GRADE_KVIP')}</em>{/if}{/if}

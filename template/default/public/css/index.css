@@ -1,0 +1,27 @@
+.wrap{float:left;width:100%;min-height:300px}
+.content{margin-right:352px}
+.fly-list-top{margin-bottom:15px}
+.fly-list{padding:0;background-color:#fff;border-radius:2px}
+.fly-list li:last-child{border-bottom:none}
+.fly-list .fly-list-li{position:relative;height:45px;margin-top:0;padding:10px 0 10px 75px;border-bottom:1px dotted #E9E9E9}
+.fly-list-li .fly-list-avatar{position:absolute;left:15px;top:10px}
+.fly-list-avatar img{width:45px;height:45px;border-radius:2px}
+.fly-list-li h2{line-height:26px;font-size:0}
+.fly-tip{position:relative}
+.fly-list-li h2 a{max-width:86%;margin-right:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px}
+.fly-list-li h2 *{display:inline-block;vertical-align:top}
+.fly-tip .fly-tip-jing{background-color:#c00}
+.fly-list-li h2 span{position:relative;top:3px;margin-left:5px}
+.fly-list-li p{position:relative;line-height:20px;font-size:12px;color:#999}
+.fly-list-li p span{padding-right:15px}
+.fly-list-li p span a{color:#999}
+.fly-list-hint{position:absolute;right:0;top:-2px}
+.fly-list-hint i{padding-left:10px;color:#ccc}
+.fly-tip span{height:20px;line-height:20px;padding:0 5px;background-color:#999;color:#fff;font-size:12px;border-radius:0}
+.fly-tip .fly-tip-stick{background-color:#393D49}
+.fly-tab{position:relative;margin-bottom:15px}
+.fly-tab span{border:1px solid #ddd;border-right:none;font-size:0}
+.fly-tab span,.fly-tab span a{display:inline-block;vertical-align:top}
+.fly-tab span a{position:relative;height:36px;line-height:36px;padding:0 20px;border-right:1px solid #ddd;font-size:14px;background-color:#fff}
+.fly-search{position:relative;margin-left:10px;display:inline-block;vertical-align:top;width:200px}
+.jie-add{position:absolute;right:0;top:0;font-size:14px}

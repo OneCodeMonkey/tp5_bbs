@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>修改帖子 - Templet360</title>
+{include file="index/header"}
+<link rel="stylesheet" href="__ADMIN__/wangEditor/css/wangEditor.min.css">
+<script type="text/javascript" src="__ADMIN__/wangEditor/js/wangEditor.min.js"></script>
+<style type="text/css">
+.tpt_sels a{padding-right:15px;position:relative}
+.tpt_sels a{padding:0 20px 0 8px;color:#3B6268;background:#FFFFBA;border:1px #F8E06E solid;margin-right:5px;margin-bottom:5px;font-size:14px;height:26px;line-height:26px;display:block;float:left}
+.tpt_pres a.selected{padding:0 8px;color:#3B6268;background:#FFFFBA;border:1px #F8E06E solid;margin-right:5px;margin-bottom:5px;font-size:14px;height:26px;line-height:26px;display:block;float:left}
+.tpt_pres a{padding:0 8px;color:#fff;background:#5AC7A9;border:1px #5AC7A9 solid;margin-right:5px;margin-bottom:5px;font-size:14px;height:26px;line-height:26px;display:block;float:left}
+.tpt_sels a em{width: 12px;height: 12px;font-style: normal;display: block;position: absolute;top: 7px;right: 4px;z-index: 2;background: url(__ADMIN__/img/sx.png) no-repeat 0 0;}
+.cl{zoom:1}
+.cl:after{content:'\20';display:block;height:0;clear:both;visibility:hidden}
+.wangEditor-menu-container .menu-item a {padding: 12px 0;}
+.wangEditor-menu-container .menu-item {height: 37px;width: 37px;}
+.wangEditor-menu-container .menu-group {padding: 0;}
+.wangEditor-container {border: 1px solid #e6e6e6;}
+</style>
+<div class="wp cl">
+<div class="tpt-forum cl">
+<blockquote class="layui-elem-quote">修改帖子</blockquote>
+<form class="layui-form layui-form-pane" method="post" style="padding: 10px 0 0 0;">
+<div class="layui-form-item">
+<div class="layui-inline">
+<label class="layui-form-label">板块</label>
+<div class="layui-input-block">
+<select name="tid">
+{volist name="tptcs" id="vo"}
+<option {if condition="$tptc['tid'] eq $vo['id']"}selected="selected"{/if} value="{$vo.id}">{$vo.name}</option>
+{/volist}
+</select>
+</div>
+</div>
+</div>
+<div class="layui-form-item">
+<label for="L_title" class="layui-form-label">标题</label>
+<div class="layui-input-block">
+<input type="text" name="title" value="{$tptc.title}" required lay-verify="required|titlea|titleb" autocomplete="off" class="layui-input">
+</div>
+</div>
+<div class="layui-form-item layui-form-text">
+<div class="layui-input-block">
+<textarea id="textarea" name="content" required lay-verify="content" style="height:400px;width: 100%;">{$tptc.content}</textarea>
+</div>
+<label for="L_content" class="layui-form-label" style="top: -2px;">内容</label>
+</div>
+<div class="tpt_item">
+<input type="hidden" name="keywords" value="{$tptc.keywords}">
+<div id="tpt_sel" class="tpt_sels tpt-none-750" style="margin-top: 20px;">
+<span style="margin-bottom: 5px;float: left;">
+{if condition="$tptc['keywords'] neq ''"}<?php $arr=explode(',', $tptc['keywords']);foreach ($arr as $k=>$v){echo "<a href='javascript:;'>$v<em></em></a>";}?>{/if}
+</span>
+<div class="layui-form-item" style="margin-bottom: 10px;">
+<label class="layui-form-label">标签</label>
+<div class="layui-input-block">
+<input id="tpt_input" type="text" value="" autocomplete="off" class="layui-input" style="width: 400px;float: left;margin-right: 20px;">
+<button class="layui-btn" id="tpt_btn" type="button" style="background: #FF5722;">添加标签</button>
+</div>
+</div>
+</div>
+<div id="tpt_pre" class="tpt_pres cl tpt-none-750" style="margin-bottom: 15px;">
+{volist name="tagss" id="tag"}
+{if condition="$tag neq ''"}<a href="javascript:;">{$tag}</a>{/if}
+{/volist}
+</div>
+</div>
+<div class="layui-form-item">
+<button class="layui-btn" lay-submit="" lay-filter="forum_edit">立即发布</button>
+</div>
+</form>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+$('#tpt_input').keydown(function(e) {
+if (e.which === 13) {
+$("#tpt_btn").click();
+e.preventDefault();
+return false;
+}
+});
+$("#tpt_sel").on('click', 'a>em', function() {
+var name = "keywords";
+var tag = $(this).parent().text();
+$(this).parent().remove();
+var tags = new Array();
+$("#tpt_sel").find('a').each(function() {
+tags.push($(this).text());
+});
+$("input[name=" + name + "]").val(tags.join(","));
+$("#tpt_pre a:contains('" + tag + "')").removeClass("selected");
+});
+$("#tpt_btn").click(function() {
+var name = "keywords";
+var tags = $.trim($("input[name=" + name + "]").val());
+if (tags !== "") {
+tags = tags.split(",");
+} else {
+tags = new Array();
+}
+var tag = $.trim($("#tpt_input").val());
+if (tag !== '' && $.inArray(tag, tags) === -1) {
+tags.push(tag);
+$("#tpt_pre a:contains('" + tag + "')").addClass("selected");
+}
+$("#tpt_sel").children('span').empty();
+$.each(tags, function(k, v) {
+$("#tpt_sel").children('span').append('<a href="javascript:;">' + v + '<em></em></a>');
+});
+$("input[name=" + name + "]").val(tags.join(","));
+$("#tpt_input").val('');
+});
+$("#tpt_pre").on('click', 'a:not(.selected)', function() {
+var name = "keywords";
+var tags = $.trim($("input[name=" + name + "]").val());
+if (tags !== "") {
+tags = tags.split(",");
+} else {
+tags = new Array();
+}
+var tag = $.trim($(this).text());
+if (tag !== '' && $.inArray(tag, tags) === -1) {
+tags.push(tag);
+}
+$("#tpt_sel").children('span').empty();
+$.each(tags, function(k, v) {
+$("#tpt_sel").children('span').append('<a href="javascript:;">' + v + '<em></em></a>');
+});
+$("input[name=" + name + "]").val(tags.join(","));
+$(this).addClass('selected');
+});
+});
+</script>
+<script type="text/javascript">
+var editor = new wangEditor('textarea');
+editor.config.uploadImgUrl = '{:url("index/upload/doUploadPic")}';
+editor.config.uploadImgFileName = 'FileName';
+editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
+if (item === 'eraser') {
+return null;
+}
+if (item === 'video') {
+return null;
+}
+if (item === 'location') {
+return null;
+}
+return item;
+});
+editor.config.pasteText = true;
+editor.create();
+</script>
+<script>
+layui.use('form', function(){
+var form = layui.form()
+,jq = layui.jquery;
+
+form.verify({
+content: function(value){
+if(value.replace(/<[^<>]+?>|[ ]|[&nbsp;]/g,'') == ''){
+return '内容不得为空';
+}
+}
+,titlea: function(value){
+if(value.length < 5){
+return '标题必须大于5位';
+}
+}
+,titleb: function(value){
+if(value.length > 32){
+return '标题必须小于32位';
+}
+}
+});
+form.on('submit(forum_edit)', function(data){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+var param = data.field;
+jq.post('{:url("index/forum/edit",array("id"=>$tptc.id))}',param,function(data){
+if(data.code == 200){
+layer.close(loading);
+layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+location.href = '{:url("index/user/index")}';
+});
+}else{
+layer.close(loading);
+layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+}
+});
+return false;
+});
+})
+</script>
+{include file="index/footer"}
+</body>
+</html>

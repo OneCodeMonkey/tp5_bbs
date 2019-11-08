@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>我的帖子 - Templet360</title>
+{include file="index/header"}
+<link rel="stylesheet" href="__HOME__/css/user.css">
+<div class="mobile cl">
+<div class="tpt-user cl">
+{include file="user/header"}
+<div class="tpt-tab cl">
+<div class="layui-tab layui-tab-brief">
+<ul class="layui-tab-title">
+<li class="layui-this">{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/index.html">{else/}<a href="__INDEX__/user/index.html">{/if}我的帖子</a></li>
+<li>{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/comment.html">{else/}<a href="__INDEX__/user/comment.html">{/if}我的评论</a></li>
+</ul>
+<div class="layui-tab-content">
+<ul class="jie-row">
+{volist name="tptc" id="vo"}
+<li>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/thread/{$vo.id}.html" target="_blank" class="jie-title">{else/}<a href="__INDEX__/thread/{$vo.id}.html" target="_blank" class="jie-title">{/if}{$vo.title}</a>
+<i>{$vo.time|date="Y-m-d",###}</i>
+{if condition="config('web.WEB_URL') eq 1"}<a class="mine-edit" href="__ROOT__/edit/{$vo.id}.html">{else/}<a class="mine-edit" href="__INDEX__/edit/{$vo.id}.html">{/if}编辑</a>
+</li>
+{/volist}
+</ul>
+<div class="pages cl">{$tptc->render()}</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{include file="index/footer"}
+</body>
+</html>

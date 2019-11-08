@@ -1,0 +1,42 @@
+<div class="footer">
+<p class="bq">
+<a href="{:config('web.WEB_COM')}">Copyright© 2018</a>
+<a class="banquan" target="_blank" href="http://www.qijiamuseum.com/">Powered by Longyun.</a>
+</p>
+<p>
+<a href="http://www.miitbeian.gov.cn/" target="_blank">{:config('web.WEB_ICP')}</a>
+<a href="http://wpa.qq.com/msgrd?v=3&uin={:config('web.WEB_QQ')}&site=qq&menu=yes" target="_blank">QQ:{:config('web.WEB_QQ')}</a>
+</p>
+</div>
+<script type="text/javascript">
+$("#menu_button").click(function(){
+if($("#menu_list").css("display")=="none"){
+$("#menu_list").show();
+}else{
+$("#menu_list").hide();
+}
+});
+</script>
+<script type="text/javascript">
+layui.use(['layer','jquery','element'], function(){
+var layer = layui.layer
+,element = layui.element()
+,jq = layui.jquery;
+jq('.logi_logout').click(function(){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+jq.getJSON('{:url("login/logout")}',function(data){
+if(data.code == 200){
+layer.close(loading);
+layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+location.reload();
+});
+}else{
+layer.close(loading);
+layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+}
+});
+});
+})
+</script>

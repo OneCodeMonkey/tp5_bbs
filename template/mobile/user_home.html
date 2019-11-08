@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>{$m.username} - Templet360</title>
+{include file="index/header"}
+<link rel="stylesheet" href="__HOME__/css/user.css">
+<div class="mobile cl">
+<div class="fly-home">
+<img src="__UPLO__{$m.userhead}" alt="{$m.username}">
+<h1>
+{$m.username}
+{if condition="$m.sex eq 1"} <i class="iconfont icon-nan">&#xe658;</i>{else /} <i class="iconfont icon-nv">&#xe658;</i>{/if}
+</h1>
+<p class="fly-home-info">
+<i class="iconfont">&#xe686;</i><span style="color: #FF7200;">{$m.point}</span>
+<i class="iconfont">&#xe64d;</i><span>{$m.regtime|date="Y-m-d",###} 加入</span>
+<i class="iconfont">&#xe651;</i><span>{if condition="$m.userhome neq ''"}{$m.userhome}{else /}中国{/if}</span>
+</p>
+<p class="fly-home-sign">{if condition="$m.description neq ''"}（{$m.description}）{else /}（这个人懒得留下签名）{/if}</p>
+</div>
+<div class="main fly-home-main">
+<div class="layui-inline fly-home-jie">
+<div class="fly-panel">
+<h3 class="fly-panel-title">{$m.username} 最近的帖子</h3>
+<ul class="jie-row">
+{volist name="tptc" id="vo"}
+<li>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/thread/{$vo.id}.html" class="jie-title">{else/}<a href="__INDEX__/thread/{$vo.id}.html" class="jie-title">{/if}{$vo.title}</a>
+<i></i>
+<em>{$vo.time|date="Y-m-d",###}</em>
+</li>
+{/volist}
+</ul>
+</div>
+</div>
+<div class="layui-inline fly-home-da">
+<div class="fly-panel">
+<h3 class="fly-panel-title">{$m.username} 最近的评论</h3>
+<ul class="home-jieda">
+{volist name="tpte" id="vo"}
+<li>
+<p>
+<span>{$vo.time|date="Y-m-d",###}</span>
+在{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/thread/{$vo.fid}.html">{else/}<a href="__INDEX__/thread/{$vo.fid}.html">{/if}{$vo.title}</a>中回答：
+</p>
+<div class="home-dacontent">
+{$vo['content']|substr_zh=0,50}...
+</div>
+</li>
+{/volist}
+</ul>
+</div>
+</div>
+</div>
+</div>
+{include file="index/footer"}
+</body>
+</html>

@@ -1,0 +1,5 @@
+{if condition="$tptuser.userid eq 1"}<em style="font-style: normal;color:#FF7200;margin-left: 10px;">管理员</em>{else /}
+{if condition="$tptuser.point egt config('point.GRADE_AVIP') and $tptuser.point lt config('point.GRADE_BVIP')"}<em style="font-style: normal;color:#FF7200;margin-left: 10px;">{:config('point.GRADE_CVIP')}</em>{/if}
+{if condition="$tptuser.point egt config('point.GRADE_DVIP') and $tptuser.point lt config('point.GRADE_EVIP')"}<em style="font-style: normal;color:#FF7200;margin-left: 10px;">{:config('point.GRADE_FVIP')}</em>{/if}
+{if condition="$tptuser.point egt config('point.GRADE_GVIP') and $tptuser.point lt config('point.GRADE_HVIP')"}<em style="font-style: normal;color:#FF7200;margin-left: 10px;">{:config('point.GRADE_IVIP')}</em>{/if}
+{if condition="$tptuser.point egt config('point.GRADE_JVIP')"}<em style="font-style: normal;color:#FF7200;margin-left: 10px;">{:config('point.GRADE_KVIP')}</em>{/if}{/if}

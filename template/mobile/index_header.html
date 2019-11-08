@@ -1,0 +1,70 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="/favicon.ico" rel="shortcut icon">
+<link rel="stylesheet" href="__ADMIN__/layui/css/layui.css">
+<link rel="stylesheet" href="__HOME__/css/style.css">
+<script src="__ADMIN__/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="__ADMIN__/layui/layui.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="tpt-header">
+<div class="tpt-logo">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__">{else/}<a href="__INDEX__">{/if}{:config('web.WEB_AUT')}</a>
+</div>
+<div class="tpt-addtop">
+<div id="menu_button">
+<i style="cursor: pointer;font-size: 50px;position: relative;top: -5px;" class="layui-icon">&#xe604;</i>
+</div>
+<div class="tpt-add">
+{if condition="config('web.WEB_URL') eq 1"}
+<a href="__ROOT__/add.html">
+{else/}
+<a href="__INDEX__/add.html">
+{/if}
+<i style="color: #FFFFFF;font-size: 30px;position: relative;top: -5px;" class="layui-icon">&#xe609;</i>
+</a>
+</div>
+</div>
+<div id="menu_list">
+<ul class="layui-nav layui-nav-tree layui-nav-side">
+<li class="layui-nav-item layui-nav-itemed">{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__">{else/}<a href="__INDEX__">{/if}网站首页</a></li>
+{volist name="tptop" id="vo" key="k"}
+{if condition="$vo['show'] eq 1"}
+<li class="layui-nav-item layui-nav-itemed">
+{if condition="$vo['link'] neq ''"}<a {if condition="$vo['blank'] eq 1"}target="_blank" {/if}href="{$vo.link}">{else/}<a href="javascript:;">{/if}{$vo.name}</a>
+{if condition="$vo['link'] eq ''"}<dl class="layui-nav-child">{/if}
+{volist name="tptops" id="vs" key="k"}
+{if condition ="$vo.id eq $vs['tid']"}
+{if condition="$vs['show'] eq 1"}
+<dd><a {if condition="$vs['blank'] eq 1"}target="_blank" {/if}href="{$vs.link}">{$vs.name}</a></dd>
+{/if}
+{/if}
+{/volist}
+{if condition="$vo['link'] eq ''"}</dl>{/if}
+</li>
+{/if}
+{/volist}
+</ul>
+</div>
+<div class="tpt-status">
+{if condition="$Think.session.username neq ''"}
+{if condition="config('web.WEB_URL') eq 1"}
+<a class="avatar" href="__ROOT__/home/{$tptuser.userid}.html">
+{else/}
+<a class="avatar" href="__INDEX__/home/{$tptuser.userid}.html">
+{/if}
+<img src="__UPLO__{$tptuser.userhead}">
+<cite>{$tptuser.username}</cite>
+</a>
+{if condition="$tptuser['reply'] neq 0"}
+{if condition="config('web.WEB_URL') eq 1"}<a class="tpt-message" href="__ROOT__/user/message.html">{else/}<a class="tpt-message" href="__INDEX__/user/message.html">{/if}
+<i class="iconfont">&#xe60a;</i><span>{$tptuser.reply}</span></a>
+{/if}
+{else/}
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/login.html">{else/}<a href="__INDEX__/user/login.html">{/if}<i class="iconfont" style="font-size: 38px;position: relative;top: 2px;">&#xe619;</i></a>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/login.html">{else/}<a href="__INDEX__/user/login.html">{/if}登录</a>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/reg.html">{else/}<a href="__INDEX__/user/reg.html">{/if}注册</a>
+{/if}
+</div>
+</div>

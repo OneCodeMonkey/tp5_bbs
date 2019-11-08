@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>基本设置 - Templet360</title>
+{include file="index/header"}
+<link rel="stylesheet" href="__HOME__/css/user.css">
+<div class="wp cl">
+<div class="tpt-user cl">
+<ul class="layui-nav layui-nav-tree" lay-filter="user">
+<li class="layui-nav-item">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/home/{$Think.session.userid}.html">{else/}<a href="__INDEX__/home/{$Think.session.userid}.html">{/if}
+<i class="layui-icon">&#xe609;</i>
+我的主页
+</a>
+</li>
+<li class="layui-nav-item">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/index.html">{else/}<a href="__INDEX__/user/index.html">{/if}
+<i class="layui-icon">&#xe612;</i>
+我的帖子
+</a>
+</li>
+<li class="layui-nav-item">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/comment.html">{else/}<a href="__INDEX__/user/comment.html">{/if}
+<i class="layui-icon">&#xe611;</i>
+我的评论
+</a>
+</li>
+<li class="layui-nav-item">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/message.html">{else/}<a href="__INDEX__/user/message.html">{/if}
+<i class="layui-icon">&#xe616;</i>
+评论我的
+</a>
+</li>
+<li class="layui-nav-item layui-this">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/set.html">{else/}<a href="__INDEX__/user/set.html">{/if}
+<i class="layui-icon">&#xe620;</i>
+基本设置
+</a>
+</li>
+</ul>
+<div class="tpt-tab cl">
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+<ul class="layui-tab-title">
+<li class="layui-this">我的资料</li>
+<li>头像</li>
+<li>密码</li>
+</ul>
+<div class="layui-tab-content" style="padding: 20px 0;">
+<div class="layui-tab-item layui-show">
+<form class="layui-form layui-form-pane" method="post">
+<div class="layui-form-item">
+<label for="L_email" class="layui-form-label">邮箱</label>
+<div class="layui-input-inline">
+<input type="text" required lay-verify="required" autocomplete="off" value="{$tptc.usermail}" class="layui-input" disabled>
+</div>
+</div>
+<div class="layui-form-item">
+<label for="L_username" class="layui-form-label">昵称</label>
+<div class="layui-input-inline">
+<input type="text" required lay-verify="required|names" autocomplete="off" value="{$tptc.username}" class="layui-input" disabled>
+</div>
+</div>
+<div class="layui-form-item">
+<label for="L_username" class="layui-form-label">性别</label>
+<div class="layui-input-inline">
+<input type="radio" name="sex" value="1" title="男" {if condition="$tptc['sex'] eq 1"}checked{/if}>
+<input type="radio" name="sex" value="0" title="女" {if condition="$tptc['sex'] eq 0"}checked{/if}>
+</div>
+</div>
+<div class="layui-form-item">
+<label for="L_city" class="layui-form-label">城市</label>
+<div class="layui-input-inline">
+<input type="text" name="userhome" lay-verify="homes" autocomplete="off" value="{$tptc.userhome}" class="layui-input">
+</div>
+</div>
+<div class="layui-form-item layui-form-text">
+<label for="L_sign" class="layui-form-label">签名</label>
+<div class="layui-input-block">
+<textarea placeholder="随便写些什么刷下存在感" name="description" lay-verify="descrs" autocomplete="off" class="layui-textarea" style="height: 80px;">{$tptc.description}</textarea>
+</div>
+</div>
+<div class="layui-form-item">
+<button class="layui-btn" lay-submit="" lay-filter="user_set">确认修改</button>
+</div>
+</form>
+</div>
+<div class="layui-tab-item">
+<form class="layui-form" method="post">
+<div class="layui-form-item">
+<div class="avatar-add">
+<p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>
+<div class="upload-img">
+<input type="file" name="file" class="layui-upload-file" id="image">
+<input type="hidden" name="userhead" value="{$tptc.userhead}" class="layui-input">
+</div>
+<img id="headedit" src="__UPLO__{$tptc.userhead}">
+</div>
+</div>
+<div class="layui-form-item">
+<button class="layui-btn" lay-submit="" lay-filter="user_headedit">确认修改</button>
+</div>
+</form>
+</div>
+<div class="layui-tab-item">
+<form class="layui-form layui-form-pane" method="post">
+<div class="layui-form-item">
+<label class="layui-form-label">修改密码</label>
+<div class="layui-input-inline">
+<input type="password" name="password" required lay-verify="required|pass" autocomplete="off" class="layui-input">
+</div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">确认密码</label>
+<div class="layui-input-inline">
+<input type="password" name="passwords" required lay-verify="required|pass" autocomplete="off" class="layui-input">
+</div>
+</div>
+<div class="layui-form-item">
+<button class="layui-btn" lay-submit="" lay-filter="user_setedit">确认修改</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+layui.use(['form', 'upload', 'element'],function(){
+var form = layui.form()
+,element = layui.element()
+,jq = layui.jquery;
+layui.upload({
+url: '{:url("index/upload/upimage")}'
+,elem:'#image'
+,ext: 'jpg|png|gif'
+,area: ['100px', '100px']
+,before: function(input){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+}
+,success: function(res){
+layer.close(loading);
+jq('input[name=userhead]').val(res.path);
+headedit.src = "__UPLO__"+res.path;
+layer.msg(res.msg, {icon: 1, time: 1000});
+}
+}); 
+
+form.verify({
+names: function(value){
+if(value.length > 12){
+return '昵称必须小于12位';
+}
+}
+,homes: function(value){
+if(value.length > 6){
+return '城市必须小于6位';
+}
+}
+,descrs: function(value){
+if(value.length > 16){
+return '签名必须小于16位';
+}
+}
+,pass: [/(.+){6,12}$/, '密码必须6到12位']
+,content: function(value){
+layedit.sync(editIndex);
+}
+});
+form.on('submit(user_set)', function(data){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+var param = data.field;
+jq.post('{:url("index/user/set")}',param,function(data){
+if(data.code == 200){
+layer.close(loading);
+layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+location.href = '{:url("index/user/set")}';
+});
+}else{
+layer.close(loading);
+layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+}
+});
+return false;
+});
+form.on('submit(user_setedit)', function(data){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+var param = data.field;
+jq.post('{:url("index/user/setedit")}',param,function(data){
+if(data.code == 200){
+layer.close(loading);
+layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+location.href = '{:url("index/user/set")}';
+});
+}else{
+layer.close(loading);
+layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+}
+});
+return false;
+});
+form.on('submit(user_headedit)', function(data){
+loading = layer.load(2, {
+shade: [0.2,'#000']
+});
+var param = data.field;
+jq.post('{:url("index/user/headedit")}',param,function(data){
+if(data.code == 200){
+layer.close(loading);
+layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+location.href = '{:url("index/user/set")}';
+});
+}else{
+layer.close(loading);
+layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+}
+});
+return false;
+});
+});
+</script>
+{include file="index/footer"}
+</body>
+</html>

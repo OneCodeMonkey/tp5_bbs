@@ -1,0 +1,21 @@
+.edge{margin-top: 15px;}
+.leifeng-rank{margin-bottom:15px;padding-bottom:15px}
+.fly-panel{background-color:#fff;border-radius:2px}
+.leifeng-rank dl{margin-left:15px;font-size:0}
+.leifeng-rank dd{position:relative;width:65px;height:85px;margin:10px 15px 0 0;display:inline-block;vertical-align:top;font-size:12px}
+.leifeng-rank dd a img{width:65px;height:65px;border-radius:2px}
+.leifeng-rank dd a cite{position:absolute;bottom:20px;left:0;width:100%;height:20px;line-height:20px;text-align:center;background-color:rgba(0,0,0,.2);color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.leifeng-rank dd a i{position:absolute;bottom:-5px;left:0;width:100%;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:normal}
+.fly-link ul{display:inline-block;vertical-align:top;padding:5px 0}
+.fly-link li{float:left;margin:0 0 5px 10px}
+.fly-link li a{font-size:14px;color:#555;background:#F3F3F3;text-align:center;line-height:36px;padding-right:0;padding:8px 21px;border-radius:20px}
+.fly-link a{padding-right:15px}
+.fly-link li a:hover{color:#fff;background:#009688}
+.fly-list-one dd{margin:0 15px;line-height:26px;white-space:nowrap;overflow:hidden;list-style:decimal-leading-zero inside;color:#009E94}
+.fly-list-one dd a{max-width:80%;margin-right:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.fly-list-one dd a,.fly-list-one dd span{display:inline-block;vertical-align:top;font-style:normal}
+.fly-list-one dd span{font-size:12px;color:#ccc}
+.fly-list-one{margin-bottom:15px;padding:0 0 10px}
+.fly-link dl{padding:5px 15px}
+.fly-link dd{display:inline-block;vertical-align:top}
+.fly-link a{padding-right:15px}

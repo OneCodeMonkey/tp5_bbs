@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>{:config('web.WEB_TIT')}</title>
+<meta name="keywords" content="{:config('web.WEB_KEY')}">
+<meta name="description" content="{:config('web.WEB_DES')}">
+{include file="index/header"}
+<link rel="stylesheet" href="__HOME__/css/index.css">
+<div class="mobile cl">
+<div class="content">
+{include file="index/menu"}
+<h3 class="fly-panel-title">顶置帖子</h3>
+<ul class="fly-list fly-list-top">
+{volist name="tptc" id="vo"}
+<li class="fly-list-li">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/home/{$vo.userid}.html" class="fly-list-avatar">{else/}<a href="__INDEX__/home/{$vo.userid}.html" class="fly-list-avatar">{/if}
+<img src="__UPLO__{$vo.userhead}" alt="{$vo.username}">
+</a>
+<h2 class="fly-tip">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/thread/{$vo.id}.html">{else/}<a href="__INDEX__/thread/{$vo.id}.html">{/if}{$vo.title}</a>
+</h2>
+<p>
+<span>{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/home/{$vo.userid}.html">{else/}<a href="__INDEX__/home/{$vo.userid}.html">{/if}{$vo.username}</a></span>
+<span>{$vo.time|date="Y-m-d",###}</span>
+<span>{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/view/{$vo.cid}.html">{else/}<a href="__INDEX__/view/{$vo.cid}.html">{/if}{$vo.name}</a></span>
+</p>
+</li>
+{/volist}
+</ul>
+<h3 class="fly-panel-title">最新帖子</h3>
+<ul class="fly-list">
+{volist name="tptcs" id="vo"}
+<li class="fly-list-li">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/home/{$vo.userid}.html" class="fly-list-avatar">{else/}<a href="__INDEX__/home/{$vo.userid}.html" class="fly-list-avatar">{/if}
+<img src="__UPLO__{$vo.userhead}" alt="{$vo.username}">
+</a>
+<h2 class="fly-tip">
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/thread/{$vo.id}.html">{else/}<a href="__INDEX__/thread/{$vo.id}.html">{/if}{$vo.title}</a>
+</h2>
+<p>
+<span>{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/home/{$vo.userid}.html">{else/}<a href="__INDEX__/home/{$vo.userid}.html">{/if}{$vo.username}</a></span>
+<span>{$vo.time|date="Y-m-d",###}</span>
+<span>{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/view/{$vo.cid}.html">{else/}<a href="__INDEX__/view/{$vo.cid}.html">{/if}{$vo.name}</a></span>
+</p>
+</li>
+{/volist}
+</ul>
+<div class="pages">{$tptcs->render()}</div>
+{include file="index/right"}
+</div>
+</div>
+{include file="index/footer"}
+</body>
+</html>

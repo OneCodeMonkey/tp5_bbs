@@ -1,0 +1,22 @@
+<div class="fly-tab cl">
+<ul>
+<li>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/index.html">{else/}<a href="__INDEX__/user/index.html">{/if}
+<i class="layui-icon">&#xe612;</i>
+我的帖子
+</a>
+</li>
+<li>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/message.html">{else/}<a href="__INDEX__/user/message.html">{/if}
+<i class="layui-icon">&#xe611;</i>
+评论我的
+</a>
+</li>
+<li>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/user/set.html">{else/}<a href="__INDEX__/user/set.html">{/if}
+<i class="layui-icon">&#xe620;</i>
+基本设置
+</a>
+</li>
+</ul>
+</div>

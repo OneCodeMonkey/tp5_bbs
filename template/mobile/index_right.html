@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="__HOME__/css/right.css">
+<div class="edge">
+<div class="fly-panel leifeng-rank"> 
+<h3 class="fly-panel-title">最新会员</h3>
+<dl>
+{volist name="tptm" id="vo"}
+<dd>
+{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/home/{$vo.userid}.html">{else/}<a href="__INDEX__/home/{$vo.userid}.html">{/if}
+<img src="__UPLO__{$vo.userhead}">
+<cite>{$vo.point}</cite>
+<i>{$vo.username}</i>
+</a>
+</dd>
+{/volist}
+</dl>
+</div>
+<div class="fly-panel fly-link leifeng-rank" style="padding-bottom: 0;"> 
+<h3 class="fly-panel-title">板块列表</h3>
+<ul>
+{volist name="tpto" id="vo"}
+<li>{if condition="config('web.WEB_URL') eq 1"}<a href="__ROOT__/view/{$vo.id}.html">{else/}<a href="__INDEX__/view/{$vo.id}.html">{/if}{$vo.name}</a></li>
+{/volist}
+</ul>
+</div>
+</div>
